@@ -134,7 +134,7 @@ namespace GradeBook.GradeBooks
             var honorPoints = 0d;
             var dualEnrolledPoints = 0d;
 
-            foreach (var student in Students)
+            foreach (var student in Students.ToList())
             {
                 student.LetterGrade = GetLetterGrade(student.AverageGrade);
                 student.GPA = GetGPA(student.LetterGrade, student.Type);
