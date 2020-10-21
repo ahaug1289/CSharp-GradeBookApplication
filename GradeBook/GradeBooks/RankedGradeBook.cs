@@ -10,5 +10,32 @@ namespace GradeBook.GradeBooks
             Type = GradeBookType.Ranked;
             Name = name;
         }
+        public override char GetLetterGrade(double averageGrade)
+        {
+            if (Students.Count < 5)
+                throw new InvalidOperationException("5 or more students are required for letter grades");
+            var increment = Students.Count / 5;
+            Console.WriteLine($"increment is {increment}");
+
+            Students.Sort((x, y) => y.AverageGrade.CompareTo(x.AverageGrade));
+            var studentIndex = Students.FindIndex(x => x.AverageGrade < averageGrade) - 1;
+            Console.WriteLine($"studentIndex is {studentIndex}");
+
+            var letterIndex = studentIndex / increment + 1;
+            Console.WriteLine($"letterIndex is {letterIndex}");
+            switch (letterIndex)
+            {
+                case 1:
+                    return 'A';
+                case 2:
+                    return 'B';
+                case 3:
+                    return 'C';
+                case 4:
+                    return 'D';
+                default:
+                    return 'F';
+            }
+        }
     }
 }
